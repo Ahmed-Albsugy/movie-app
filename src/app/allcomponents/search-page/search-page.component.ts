@@ -1,25 +1,29 @@
 import { MoviesService } from './../../services/movies.service';
 import { Component } from '@angular/core';
-import { HeaderComponent } from "../header/header.component";
-import { SearchformComponent } from "../searchform/searchform.component";
+import { HeaderComponent } from '../header/header.component';
+import { SearchformComponent } from '../searchform/searchform.component';
 import { CardComponent } from '../card/card.component';
-import { PaginationComponent } from './../../pagination/pagination.component';
-
+import { PaginationComponent } from './../pagination/pagination.component';
 
 @Component({
   selector: 'app-search-page',
-  imports: [HeaderComponent, SearchformComponent, CardComponent, PaginationComponent],
+  imports: [
+    HeaderComponent,
+    SearchformComponent,
+    CardComponent,
+    PaginationComponent,
+  ],
   templateUrl: './search-page.component.html',
-  styleUrl: './search-page.component.css'
+  styleUrl: './search-page.component.css',
 })
 export class SearchPageComponent {
   searchResults: any[] = [];
   currentPage: number = 1;
   totalPages: number = 1;
   searchTerm: string = '';
-  constructor(private moviesService: MoviesService) { }
+  constructor(private moviesService: MoviesService) {}
 
-  ngOnInit() { }
+  ngOnInit() {}
 
   onSearch(term: string) {
     this.searchTerm = term;
