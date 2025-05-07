@@ -1,0 +1,157 @@
+<div *ngIf="movieDetails" class="container mt-5 pt-3">
+  <div class="row">
+    <div class="col-md-4">
+      <img
+        [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path"
+        alt="{{ movieDetails.title }}"
+        class="img-fluid"
+      />
+    </div>
+    <div class="col-md-8">
+      <!-- تفاصيل الفيلم على اليمين -->
+      <h2 class="d-flex justify-content-between align-items-center">
+        {{ movieDetails.title }}
+        <i class="fa fa-heart" style="cursor: pointer; color: yellow"></i>
+      </h2>
+
+      <p class="text-muted">{{ movieDetails.release_date }}</p>
+
+      <p>
+        <strong>Rating :</strong>
+        <span class="text-warning">
+          <!-- نجوم التقييم -->
+          <ng-container *ngFor="let star of [].constructor(5); let i = index">
+            <i
+              class="fa"
+              [ngClass]="{
+                'fa-star': i < movieDetails.vote_average / 2,
+                'fa-star-o': i >= movieDetails.vote_average / 2
+              }"
+            ></i>
+          </ng-container>
+        </span>
+        ({{ movieDetails.vote_average || 0 }}/10)
+      </p>
+
+      <!-- الوصف -->
+      <p class="lh-2 fs-5">
+        <strong>Overview:</strong>
+        {{ movieDetails.overview || "No overview available" }}
+      </p>
+
+      <!-- الأنواع (Genres) -->
+      <p>
+        <span *ngFor="let genre of movieDetails.genres">
+          <button class="btn btn-warning btn-pill btn-sm m-1">
+            {{ genre.name }}
+          </button>
+        </span>
+      </p>
+
+      <p>
+        <strong>Language:</strong> {{ movieDetails.original_language || "N/A" }}
+      </p>
+
+      <p><strong>Duration:</strong> {{ movieDetails.runtime }} minutes</p>
+
+      <!-- زر الانتاج -->
+      <p>
+        <!-- زر الزيارة مع رابط الموقع -->
+        <span
+          *ngIf="movieDetails.homepage"
+          class="d-inline-block p-2"
+          style="
+            border: 2px solid yellow;
+            border-radius: 25px;
+            background-color: white;
+          "
+        >
+          <a
+            [href]="movieDetails.homepage"
+            target="_blank"
+            class="text-dark text-decoration-none"
+            style="
+              padding: 5px 15px;
+              border-radius: 25px;
+              display: inline-block;
+            "
+          >
+            Visit Website
+          </a>
+        </span>
+
+        <!-- رسالة في حالة عدم وجود الموقع -->
+        <span
+          *ngIf="!movieDetails.homepage"
+          class="d-inline-block p-2"
+          style="
+            border: 2px solid yellow;
+            border-radius: 25px;
+            background-color: white;
+          "
+        >
+          No website available
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
+
+<!-- الأفلام الموصى -->
+<div *ngIf="recommendedMovies.length > 0" class="container mt-5 text-center">
+  <h3 class="mb-4">Recommended Movies</h3>
+  <div class="d-flex flex-wrap justify-content-center gap-3">
+    <div
+      *ngFor="let movie of recommendedMovies.slice(0, maxRecommended)"
+      class="card shadow-sm position-relative"
+      style="width: 200px; height: 350px; border-radius: 15px; overflow: hidden"
+    >
+      <!-- الصورة -->
+      <div class="position-relative" style="height: 240px">
+        <img
+          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+          alt="{{ movie.title }}"
+          class="card-img-top"
+          style="height: 100%; object-fit: cover"
+        />
+
+        <!-- التقييم داخل الصورة في أسفل الصورة (يسار) مع رمز -->
+        <div
+          class="position-absolute start-0 m-2 d-flex align-items-center justify-content-center text-white bg-warning rounded-circle"
+          style="
+            width: 40px;
+            height: 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            bottom: -23px;
+          "
+        >
+          <i
+            class="fa fa-star"
+            style="font-size: 0.8rem; margin-right: 1px"
+          ></i>
+          {{ movie.vote_average | number : "1.1-1" }}
+        </div>
+      </div>
+
+      <div class="card-body p-2">
+        <!-- الاسم والتاريخ -->
+        <h6 class="card-title mb-1 mt-2" style="font-size: 1rem">
+          {{ movie.title }}
+        </h6>
+        <p class="card-text text-muted mb-0" style="font-size: 0.9rem">
+          {{ movie.release_date || "Unknown date" }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- زر Add More -->
+  <button
+    *ngIf="maxRecommended < recommendedMovies.length"
+    class="btn btn-warning mt-4 mb-4"
+    (click)="loadMore()"
+  >
+    Show more
+  </button>
+</div>
