@@ -1,8 +1,5 @@
 import { Routes } from '@angular/router';
-<<<<<<< Updated upstream
 
-export const routes: Routes = [];
-=======
 import { HomePageComponent} from './allcomponents/home-page/home-page.component';
 import { WatchlistComponent } from './allcomponents/watchlist/watchlist.component';
 import { LoginComponent } from './allcomponents/login/login.component';
@@ -18,4 +15,3 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },
   { path: '**', redirectTo: 'home-page' }
 ];
->>>>>>> Stashed changes
