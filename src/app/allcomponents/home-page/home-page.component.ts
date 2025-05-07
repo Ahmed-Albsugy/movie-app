@@ -4,15 +4,20 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { MoviesService } from '../../services/movies.service';
 import { CardComponent } from '../card/card.component';
-import { PaginationComponent } from './../../pagination/pagination.component';
-
+import { PaginationComponent } from './../pagination/pagination.component';
 
 @Component({
   selector: 'app-home-page',
-  standalone:true,
-  imports: [RouterModule,SearchformComponent,HttpClientModule,CardComponent,PaginationComponent],
+  standalone: true,
+  imports: [
+    RouterModule,
+    SearchformComponent,
+    HttpClientModule,
+    CardComponent,
+    PaginationComponent,
+  ],
   templateUrl: './home-page.component.html',
-  styleUrl: './home-page.component.css'
+  styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
   popularMovies: any[] = [];
@@ -28,14 +33,14 @@ export class HomePageComponent {
   }
 
   loadPopularMovies() {
-    this.moviesService.getPopularMovies(this.currentPage).then(data => {
+    this.moviesService.getPopularMovies(this.currentPage).then((data) => {
       this.popularMovies = data.results;
       this.totalPages = data.total_pages;
     });
   }
 
   loadNowPlayingMovies() {
-    this.moviesService.getNowPlaying().then(data => {
+    this.moviesService.getNowPlaying().then((data) => {
       this.nowPlayingMovies = data.results;
     });
   }
@@ -57,5 +62,4 @@ export class HomePageComponent {
   trackById(index: number, movie: any): number {
     return movie.id;
   }
-
 }
