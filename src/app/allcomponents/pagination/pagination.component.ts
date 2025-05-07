@@ -4,6 +4,7 @@ import { MoviesService } from '../services/movies.service';
 
 @Component({
   selector: 'app-pagination',
+  standalone:true,
   imports: [],
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css'
