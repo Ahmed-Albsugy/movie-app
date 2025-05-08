@@ -1,2 +1,39 @@
-<p>welcom from watchlist page</p>
-<p>welcom from watchlist page</p>
+<div class="container " *ngIf="movies.length > 0; else loading">
+    <h1>Wahtch List </h1>
+    <div class="movie-card mt-5">
+        <div class="row">
+          @for (movie of movies; track movie.id) {
+          <div class="col-lg-6 col-md-6 mb-4" >
+            <div class="card ">
+                <div class="row">
+                    <div class="col-4">
+                        <img [src]="imgUrl+movie.poster_path" class="card-img-top" [alt]="movie.title">
+                    </div>
+
+                    <div class="col-8">
+                        <div class="card-body m-0">
+                            <div class=" d-flex justify-content-between">
+                              <h5 class="card-title">{{movie.title}}</h5>
+                              <img src="/yellow-heart_.svg" alt="Favorite">
+                            </div>
+                            <span class="text-muted">{{movie.release_date | date}}</span>
+                            <div class="d-flex gap-2 mt-2">
+                              <span>⭐ {{movie.vote_average | number:'1.1-1'}}</span>
+                              <span class="text-muted"> {{movie.vote_count}}</span>
+                            </div>
+                            <p class="card-overview mt-2">{{movie.overview}}</p>
+                          </div>
+                    </div>
+                </div>
+                
+              
+             
+            </div>
+          </div>
+          }
+        </div>
+      </div>
+</div>
+<ng-template #loading>
+    <p>Loading movies...</p>
+  </ng-template>

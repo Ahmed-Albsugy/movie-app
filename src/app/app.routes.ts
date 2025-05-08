@@ -10,7 +10,6 @@ import { EmptywatchlistComponent } from './allcomponents/emptywatchlist/emptywat
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
-  { path: 'watchlist', component: WatchlistComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'card', component: CardComponent },
@@ -18,6 +17,7 @@ export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
   { path: 'watchlist', component: WatchlistComponent },
   { path: 'emptyWatchList', component: EmptywatchlistComponent },
+
 
   { path: 'card', component: CardComponent },
   // {path:'search',component:SearchPageComponent},
