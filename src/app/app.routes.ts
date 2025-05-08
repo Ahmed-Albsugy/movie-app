@@ -6,16 +6,19 @@ import { MovieDetailsComponent } from './allcomponents/movie-details/movie-detai
 import { Component } from '@angular/core';
 import { SigninComponent } from './allcomponents/signin/signin.component';
 import { SignupComponent } from './allcomponents/signup/signup.component';
+import { EmptywatchlistComponent } from './allcomponents/emptywatchlist/emptywatchlist.component';
 
 export const routes: Routes = [
   { path: 'home-page', component: HomePageComponent },
-  { path: 'watchlist', component: WatchlistComponent },
   { path: 'signin', component: SigninComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'card', component: CardComponent },
   { path: 'movie/:id', component: MovieDetailsComponent },
   { path: 'home-page', component: HomePageComponent },
   { path: 'watchlist', component: WatchlistComponent },
+  { path: 'emptyWatchList', component: EmptywatchlistComponent },
+
+
   { path: 'card', component: CardComponent },
   // {path:'search',component:SearchPageComponent},
   { path: '', redirectTo: 'home-page', pathMatch: 'full' },

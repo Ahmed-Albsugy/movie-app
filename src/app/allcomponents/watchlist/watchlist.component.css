@@ -1,0 +1,21 @@
+
+   .container{
+    margin-top: 100px;
+   }
+   .card{
+    box-shadow: 5px 5px 25px rgb(179, 172, 172);
+
+   }
+   .card-overview {
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Number of lines to show */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5; /* Adjust line height as needed */
+    max-height: calc(1.5em * 4); /* line-height * number of lines */
+  }
+   .card-img-top {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
