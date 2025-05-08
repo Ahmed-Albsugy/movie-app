@@ -1,9 +1,27 @@
+
+  <!-- <input
+  [(ngModel)]="searchInput"
+  class="form-control w-100 me-lg-4"
+  list="datalistOptions"
+  id="exampleDataList"
+  placeholder="Search for movie..."
+/>
+<datalist id="datalistOptions">
+  <option value="movie1">
+  <option value="movie2">
+  <option value="movie3">
+  <option value="movie4">
+  <option value="movie5">
+</datalist>
+<button class="btn btn-warning text-black" (click)="onSearchClick()">Search</button> -->
+
 <div class="container d-flex flex-column flex-lg-row justify-content-lg-center align-items-stretch gap-2 mt-3">
   <input
-    class="form-control w-100 me-lg-4"
-    list="datalistOptions"
-    id="exampleDataList"
-    placeholder="Search for movie..."
+  [(ngModel)]="searchInput"
+  class="form-control w-100 me-lg-4"
+  list="datalistOptions"
+  id="exampleDataList"
+  placeholder="Search for movie..."
   />
   <datalist id="datalistOptions">
     <option value="movie1">
@@ -12,5 +30,6 @@
     <option value="movie4">
     <option value="movie5">
   </datalist>
-  <button class="btn btn-warning text-black">Search</button>
+  <button class="btn btn-warning text-black" (click)="onSearchClick()">Search</button>
 </div>
+
