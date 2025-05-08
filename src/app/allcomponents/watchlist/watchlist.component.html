@@ -18,7 +18,21 @@
                             </div>
                             <span class="text-muted">{{movie.release_date | date}}</span>
                             <div class="d-flex gap-2 mt-2">
-                              <span>⭐ {{movie.vote_average | number:'1.1-1'}}</span>
+                              <p>
+                                <span class="text-warning">
+                                  <!--  stars rating -->
+                                  <ng-container *ngFor="let star of [].constructor(5); let i = index">
+                                    <i
+                                      class="fa"
+                                      [ngClass]="{
+                                        'fa-star': i < movie.vote_average / 2,
+                                        'fa-star-o': i >= movie.vote_average / 2
+                                      }"
+                                    ></i>
+                                  </ng-container>
+                                </span>
+                                
+                              </p>
                               <span class="text-muted"> {{movie.vote_count}}</span>
                             </div>
                             <p class="card-overview mt-2">{{movie.overview}}</p>
