@@ -7,13 +7,13 @@
             <div class="card ">
                 <div class="row">
                     <div class="col-4">
-                        <img [src]="imgUrl+movie.poster_path" class="card-img-top" [alt]="movie.title">
+                        <img [src]="imgUrl+movie.poster_path" class="card-img-top h-100" [alt]="movie.title">
                     </div>
 
                     <div class="col-8">
                         <div class="card-body m-0">
                             <div class=" d-flex justify-content-between">
-                              <h5 class="card-title">{{movie.title}}</h5>
+                              <h5 class="card-title fw-bold">{{movie.title}}</h5>
                               <img src="/yellow-heart_.svg" alt="Favorite">
                             </div>
                             <span class="text-muted">{{movie.release_date | date}}</span>
