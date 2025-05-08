@@ -79,10 +79,18 @@
   
   
                     <div class="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                      <button type="button" data-mdb-button-init data-mdb-ripple-init
+                      <button type="submit" data-mdb-button-init data-mdb-ripple-init
                         class="btn btn-warning btn-lg">Register</button>
                     </div>
-  
+
+                    <!-- ====== -->
+                    <div *ngIf="errorMessage" class="alert alert-danger">
+                      {{ errorMessage }}
+                    </div>
+                    
+                    <div *ngIf="successMessage" class="alert alert-success">
+                      {{ successMessage }}
+                    </div>
                   </form>
   
                 </div>
