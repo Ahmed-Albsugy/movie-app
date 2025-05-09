@@ -11,14 +11,14 @@ import {
 } from '@angular/fire/auth';
 
 
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 
 
 export class AuthService {
-
+// currentUser: BehaviorSubject<User | null> = new BehaviorSubject<User | null>(null);
   currentUser: Observable<User | null>;
 
   constructor(private auth: Auth) { 

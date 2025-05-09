@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
-import { getAuth,updateProfile  } from 'firebase/auth';
+import { getAuth, updateProfile } from 'firebase/auth';
 
 
 
@@ -55,7 +55,7 @@ export class SigninComponent {
     );
   }
   // ==============================================
-  
+
   async login(form: NgForm) {
     this.submitted = true;
     this.errorMessage = '';
@@ -71,14 +71,22 @@ export class SigninComponent {
       await this.authService.signIn(this.email, this.password);
       // 2. Get the display name from Firebase Auth
       const auth = getAuth();
-    await auth.currentUser?.reload(); // refresh user data
-    const currentUser = auth.currentUser;
+      await auth.currentUser?.reload(); // refresh user data
 
-    const displayName = currentUser?.displayName || 'User';
+      const currentUser = auth.currentUser;
+      const displayName = currentUser?.displayName || 'User';
+
+      // this.toastService.showSuccess(`Welcome ${displayName}, you have successfully signed in!`);
+      // // Redirect to home page after successful login
+      // this.router.navigate(['/home-page']);
+      const isVerified = auth.currentUser?.emailVerified;
+      if (!isVerified) {
+        this.toastService.showSuccess('Please verify your email before logging in.');
+        return;
+      }
+      // ✅ Verified → Redirect to home
       this.toastService.showSuccess(`Welcome ${displayName}, you have successfully signed in!`);
-
-
-      // Redirect to home page after successful login
+      await auth.currentUser?.reload();
       this.router.navigate(['/home-page']);
 
     } catch (error: any) {
@@ -87,7 +95,7 @@ export class SigninComponent {
       this.isLoading = false;
     }
 
-   
+
 
   }
 
