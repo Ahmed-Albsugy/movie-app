@@ -30,8 +30,8 @@ export class MoviesService {
     return axios.get(url).then(res => res.data);
   }
 
-  searchMovies(query: string): Promise<any> {
-    const url = `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}&language=${this.language}`;
+  searchMovies(query: string, page: number = 1): Promise<any> {
+    const url = `${this.baseUrl}/search/movie?api_key=${this.apiKey}&query=${query}&language=${this.language}&page=${page}`;
     return axios.get(url).then(res => res.data);
   }
 
