@@ -1,10 +1,19 @@
-<div *ngIf="movieDetails" class="container mt-5 pt-3">
+<div
+  *ngIf="movieDetails"
+  class="container mt-5 pt-3"
+  style="
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+    transform: translateY(-10px);
+    border-radius: 15px;
+  "
+>
   <div class="row">
     <div class="col-md-4">
       <img
         [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path"
         alt="{{ movieDetails.title }}"
         class="img-fluid"
+        style="border-radius: 15px"
       />
     </div>
     <div class="col-md-8">
@@ -14,28 +23,25 @@
         <i class="fa fa-heart" style="cursor: pointer; color: yellow"></i>
       </h2>
 
-      <p class="text-muted">{{ movieDetails.release_date }}</p>
+      <p class="text-muted d-flex justify-content-strat">
+        {{ movieDetails.release_date }}
+      </p>
 
       <p>
-        <strong>Rating :</strong>
-        <span class="text-warning">
-          <!-- نجوم التقييم -->
-          <ng-container *ngFor="let star of [].constructor(5); let i = index">
-            <i
-              class="fa"
-              [ngClass]="{
-                'fa-star': i < movieDetails.vote_average / 2,
-                'fa-star-o': i >= movieDetails.vote_average / 2
-              }"
-            ></i>
-          </ng-container>
-        </span>
-        ({{ movieDetails.vote_average || 0 }}/10)
+        <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
+          <i
+            [ngClass]="
+              i < movieDetails.vote_average / 2
+                ? 'fas fa-star text-warning'
+                : 'far fa-star text-secondary'
+            "
+          ></i>
+        </ng-container>
+        ({{ movieDetails.vote_average | number : "1.1-1" }}/10)
       </p>
 
       <!-- الوصف -->
       <p class="lh-2 fs-5">
-        <strong>Overview:</strong>
         {{ movieDetails.overview || "No overview available" }}
       </p>
 
@@ -48,20 +54,24 @@
         </span>
       </p>
 
-      <p>
-        <strong>Language:</strong> {{ movieDetails.original_language || "N/A" }}
-      </p>
-
-      <p><strong>Duration:</strong> {{ movieDetails.runtime }} minutes</p>
+      <div class="d-flex gap-3 mb-4">
+        <p class="mb-0">
+          <strong>Duration :</strong> {{ movieDetails.runtime }} minutes
+        </p>
+        <p class="mb-0">
+          <strong>Language :</strong>
+          {{ movieDetails.original_language || "N/A" }}
+        </p>
+      </div>
 
       <!-- زر الانتاج -->
       <p>
         <!-- زر الزيارة مع رابط الموقع -->
         <span
           *ngIf="movieDetails.homepage"
-          class="d-inline-block p-2"
+          class="d-inline-block p-2 text-warning"
           style="
-            border: 2px solid yellow;
+            border: 2px solid;
             border-radius: 25px;
             background-color: white;
           "
@@ -83,11 +93,13 @@
         <!-- رسالة في حالة عدم وجود الموقع -->
         <span
           *ngIf="!movieDetails.homepage"
-          class="d-inline-block p-2"
+          class="d-inline-block"
           style="
-            border: 2px solid yellow;
+            border: 2px solid rgb(255 191 0);
+            color: black;
             border-radius: 25px;
             background-color: white;
+            padding: 12px;
           "
         >
           No website available
@@ -98,50 +110,83 @@
 </div>
 
 <!-- الأفلام الموصى -->
+<!-- الأفلام الموصى بها -->
 <div *ngIf="recommendedMovies.length > 0" class="container mt-5 text-center">
   <h3 class="mb-4">Recommended Movies</h3>
-  <div class="d-flex flex-wrap justify-content-center gap-3">
+  <div class="row">
     <div
-      *ngFor="let movie of recommendedMovies.slice(0, maxRecommended)"
-      class="card shadow-sm position-relative"
-      style="width: 200px; height: 350px; border-radius: 15px; overflow: hidden"
+      class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+      *ngFor="
+        let movie of recommendedMovies.slice(0, maxRecommended);
+        let i = index
+      "
     >
-      <!-- الصورة -->
-      <div class="position-relative" style="height: 240px">
-        <img
-          [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-          alt="{{ movie.title }}"
-          class="card-img-top"
-          style="height: 100%; object-fit: cover"
-        />
-
-        <!-- التقييم داخل الصورة في أسفل الصورة (يسار) مع رمز -->
-        <div
-          class="position-absolute start-0 m-2 d-flex align-items-center justify-content-center text-white bg-warning rounded-circle"
-          style="
-            width: 40px;
-            height: 40px;
-            font-size: 0.8rem;
-            font-weight: bold;
-            bottom: -23px;
-          "
-        >
-          <i
-            class="fa fa-star"
-            style="font-size: 0.8rem; margin-right: 1px"
-          ></i>
-          {{ movie.vote_average | number : "1.1-1" }}
+      <div class="card rounded" style="width: 100%; max-width: 200px">
+        <div class="image-container position-relative">
+          <div class="position-absolute top-end-10">
+            <span class="more" (click)="toggleDropdown(i)">
+              <!-- ثلاث نقاط -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="#434343"
+              >
+                <path
+                  d="M240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400Z"
+                />
+              </svg>
+            </span>
+            <ul
+              class="dropdown-menu show"
+              *ngIf="openedDropdownIndex === i"
+              style="position: absolute; top: 30px; right: 0; display: block"
+            >
+              <li><a class="dropdown-item" href="#">Save watch list</a></li>
+              <li><a class="dropdown-item" href="#">Delete</a></li>
+              <li><a class="dropdown-item" href="#">Report</a></li>
+            </ul>
+          </div>
+          <img
+            [src]="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
+            class="img-fluid rounded thumbnail-image"
+          />
         </div>
-      </div>
-
-      <div class="card-body p-2">
-        <!-- الاسم والتاريخ -->
-        <h6 class="card-title mb-1 mt-2" style="font-size: 1rem">
-          {{ movie.title }}
-        </h6>
-        <p class="card-text text-muted mb-0" style="font-size: 0.9rem">
-          {{ movie.release_date || "Unknown date" }}
-        </p>
+        <div class="p-2 position-relative">
+          <div class="position-absolute rating">
+            <span>{{ movie.vote_average.toFixed(1) * 10 }}%</span>
+          </div>
+          <h5 class="movie-title pt-3" (click)="goToMovieDetails(movie.id)">
+            {{ movie.title }}
+          </h5>
+          <div class="d-flex justify-content-between align-items-center">
+            <span>{{ movie.release_date }}</span>
+            <button
+              class="fav-btn"
+              title="Add to favorites"
+              (click)="toggleFavorite(movie)"
+              [ngClass]="{ active: movie.favorite }"
+            >
+              <!-- أيقونة -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="24px"
+                viewBox="0 -960 960 960"
+                width="24px"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="6"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="m479-60-87-79q-108-98-178-168.5T104-434q-40-56-55.5-103.5T33-637q0-113 76-189.5T298-903q50 0 96.5 17.5T479-836q38-32 84.5-49.5T660-903q113 0 190 76.5T927-637q0 51-15.5 98.5t-55.5 103Q816-380 746-309T566-139l-87 79Z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>

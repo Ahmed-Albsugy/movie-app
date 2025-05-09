@@ -1,8 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, Input, signal } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { SearchformComponent } from '../searchform/searchform.component';
 import { MoviesService } from '../../services/movies.service';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { MovieDetailsComponent } from '../movie-details/movie-details.component';
 
 @Component({
   selector: 'app-card',
