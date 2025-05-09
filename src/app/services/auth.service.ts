@@ -5,16 +5,25 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
   updateProfile,
-  User
+  User,
+  signOut,
+  authState
 } from '@angular/fire/auth';
 
 
+import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
+
+
 export class AuthService {
 
-  constructor(private auth: Auth) { }
+  currentUser: Observable<User | null>;
+
+  constructor(private auth: Auth) { 
+    this.currentUser = authState(this.auth);
+  }
 
   signUp(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -24,13 +33,18 @@ export class AuthService {
     return signInWithEmailAndPassword(this.auth, email, password);
   }
 
+  // logout(): Promise<void> {
+  //   return this.auth.signOut();
+  // }
   logout(): Promise<void> {
-    return this.auth.signOut();
+    return signOut(this.auth);
   }
 
-  get currentUser() {
-    return this.auth.currentUser;
-  }
+  // get currentUser() {
+  //   return this.auth.currentUser;
+  // }
+
+  
   // update user profile
   async updateUserProfile(displayName: string): Promise<void> {
     const user = this.auth.currentUser;
