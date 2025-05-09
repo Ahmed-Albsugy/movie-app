@@ -3,10 +3,13 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastService } from '../../services/toast.service';
+import { getAuth, sendEmailVerification } from 'firebase/auth';
+
 
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule,],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css'
 })
@@ -19,7 +22,11 @@ export class SignupComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) { }
+  // Toast property
+  showToast = false;
+  toastMessage = '';
+
+  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) { }
 
 
   get passwordMismatch(): boolean {
@@ -38,12 +45,23 @@ export class SignupComponent {
       return;
     }
     try {
-      // 1. Create user account
+      // Create user account
       const userCredential = await this.authService.signUp(this.email, this.password);
 
-      // 2. Update user profile with display name
+      //  Update user profile with display name
       await this.authService.updateUserProfile(this.name);
-      this.successMessage = 'Signup successful! Redirecting...';
+      // toast message
+      // this.toastService.showSuccess(`Welcome ${this.name}, you have successfully signed up!`);
+      //  Send email verification
+      const auth = getAuth();
+    const user = auth.currentUser;
+    if (user) {
+      await sendEmailVerification(user);
+      this.toastService.showSuccess(`Welcome ${this.name}! Please check your email to verify your account.`);
+      this.successMessage = 'Signup successful! Please verify your email before logging in.';
+
+      this.router.navigate(['/verify-email']);
+    }
 
       // Reset form
       this.name = '';
@@ -54,9 +72,11 @@ export class SignupComponent {
       form.resetForm();
 
       // Redirect to home after 2 seconds
-     
-        this.router.navigate(['/signin']);
-      
+      // this.router.navigate(['/home-page']);
+      // setTimeout(() => {
+      //   this.router.navigate(['/home-page']);
+      // }, 2000);
+
 
     } catch (error: any) {
       console.error('Signup error:', error);

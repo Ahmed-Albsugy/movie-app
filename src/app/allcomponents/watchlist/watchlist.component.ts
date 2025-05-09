@@ -37,20 +37,6 @@ export class WatchlistComponent {
       }
     });
   }
-  
-  // displayMovies(){
-  //     this.movieService.getMovies().subscribe({
-  //       next:(res)=>{
-  //         console.log(res.results)
-  //         this.movies=res.results ;
-  //       }
-  //     })
-  // }
 
-
-  // pipe
-  // formatVoteAverage(vote: number): string {
-  //   return vote.toFixed(1);
-  // }
 
 }

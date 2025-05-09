@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmptywatchlistComponent } from './emptywatchlist.component';
+import { VerifyEmailComponent } from './verify-email.component';
 
-describe('EmptywatchlistComponent', () => {
-  let component: EmptywatchlistComponent;
-  let fixture: ComponentFixture<EmptywatchlistComponent>;
+describe('VerifyEmailComponent', () => {
+  let component: VerifyEmailComponent;
+  let fixture: ComponentFixture<VerifyEmailComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EmptywatchlistComponent]
+      imports: [VerifyEmailComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(EmptywatchlistComponent);
+    fixture = TestBed.createComponent(VerifyEmailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
