@@ -1,23 +1,25 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MoviesService } from './../../services/movies.service';
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SearchformComponent } from '../searchform/searchform.component';
 import { CardComponent } from '../card/card.component';
 import { PaginationComponent } from './../pagination/pagination.component';
-import { NgFor, NgIf } from '@angular/common';
+import { NgClass, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-search-page',
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.css',
   imports: [
+    RouterModule,
     HeaderComponent,
     SearchformComponent,
     PaginationComponent,
     NgFor,
-    NgIf
-  ]
+    NgIf,
+    NgClass,
+  ],
 })
 export class SearchPageComponent {
   searchResults: any[] = [];
@@ -25,10 +27,14 @@ export class SearchPageComponent {
   totalPages: number = 1;
   searchTerm: string = '';
 
-  constructor(private moviesService: MoviesService, private route: ActivatedRoute) {}
+  constructor(
+    private moviesService: MoviesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit() {
-    this.route.queryParams.subscribe(params => {
+    this.route.queryParams.subscribe((params) => {
       const query = params['q'];
       if (query) {
         this.searchTerm = query;
@@ -69,5 +75,21 @@ export class SearchPageComponent {
   onSearch(term: string) {
     this.searchTerm = term;
     this.searchMovies(1);
+  }
+
+  // Movie details
+  goToMovieDetails(id: number): void {
+    this.router.navigate(['/movie', id]);
+  }
+
+  //  Dropdown list
+  openedDropdownIndex: number | null = null;
+
+  toggleDropdown(index: number): void {
+    this.openedDropdownIndex =
+      this.openedDropdownIndex === index ? null : index;
+  }
+  toggleFavorite(movie: any): void {
+    movie.favorite = !movie.favorite;
   }
 }
