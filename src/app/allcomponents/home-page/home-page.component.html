@@ -1,7 +1,18 @@
-<div
-  class="container bg-light my-5 py-5 px-4 rounded-1"
-  style="min-height: 40vh"
->
+<div class="container bg-light my-5 py-5 px-4 rounded-1" style="min-height: 40vh">
+
+  <!--! Language Selector -->
+  <div class="text-end mb-3">
+    <select
+      class="form-select w-auto d-inline"
+      [value]="selectedLanguage"
+      (change)="handleLanguageChange($event)"
+    >
+      <option *ngFor="let lang of supportedLanguages" [value]="lang">
+        {{ getLanguageName(lang) }}
+      </option>
+    </select>
+  </div>
+  
   <div class="text-center text-lg-start">
     <h1 class="card-title">Welcome to our movie app</h1>
     <p class="card-text mt-4">
@@ -14,10 +25,7 @@
 </div>
 <div class="container">
   <app-card [movies]="popularMovies"></app-card>
-  <app-pagination
-  [currentPage]="currentPage"
-  [totalPages]="totalPages"
-  (pageChange)="onPageChange($event)"
-></app-pagination>
+  <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
+    (pageChange)="onPageChange($event)"></app-pagination>
 
 </div>

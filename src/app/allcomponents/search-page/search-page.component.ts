@@ -16,9 +16,7 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
     HeaderComponent,
     SearchformComponent,
     PaginationComponent,
-    NgFor,
-    NgIf,
-    NgClass,
+    CardComponent,
   ],
 })
 export class SearchPageComponent {
