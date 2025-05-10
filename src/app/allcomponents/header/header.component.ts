@@ -20,6 +20,9 @@ export class HeaderComponent implements OnInit{
   userName: string | null = null;
   isEmailVerified: boolean = false;
 
+  wishlistCount=5;
+
+
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -47,5 +50,7 @@ export class HeaderComponent implements OnInit{
         console.error('Logout error:', error);
       });
   }
+
+  
 
 }
