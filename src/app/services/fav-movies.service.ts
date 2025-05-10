@@ -7,27 +7,38 @@ import { Firestore, collection, addDoc, deleteDoc, doc, getDocs, query, where } 
 })
 export class FavMoviesService {
 
-  constructor(private firestore: Firestore) {}
+  constructor(private firestore: Firestore) { }
 
   async addToFavorites(movie: any): Promise<void> {
-  try {
-    const favCollection = collection(this.firestore, 'FavMovies');
+    try {
+      const favCollection = collection(this.firestore, 'FavMovies');
 
-    const safeMovie = {
-      id: movie.id,
-      title: movie.title,
-      poster_path: movie.poster_path,
-      release_date: movie.release_date,
-      vote_average: movie.vote_average,
-      timestamp: Date.now()
-    };
+      // Check if movie already exists
+      const q = query(favCollection, where('id', '==', movie.id));
+      const existing = await getDocs(q);
 
-    await addDoc(favCollection, safeMovie);
-    console.log(' Movie added to Firestore:', safeMovie);
-  } catch (error) {
-    console.error(' Error adding movie:', error);
+      if (!existing.empty) {
+        console.log(' ovie already in favorites, skipping add.');
+        return;
+      }
+
+      const safeMovie = {
+        id: movie.id,
+        title: movie.title,
+        poster_path: movie.poster_path,
+        release_date: movie.release_date,
+        vote_average: movie.vote_average,
+        overview: movie.overview,
+        vote_count: movie.vote_count,
+        timestamp: Date.now()
+      };
+
+      await addDoc(favCollection, safeMovie);
+      console.log(' Movie added to Firestore:', safeMovie);
+    } catch (error) {
+      console.error(' Error adding movie:', error);
+    }
   }
-}
 
 
   async removeFromFavoritesById(movieId: number): Promise<void> {
@@ -40,6 +51,18 @@ export class FavMoviesService {
       await deleteDoc(docRef);
       console.log(` Movie ${movieId} removed from Firestore`);
     });
+  }
+
+
+  // Method to get all favorite movies
+  async getFavoriteMovies(): Promise<any[]> {
+    const favCollection = collection(this.firestore, 'FavMovies');
+    const querySnapshot = await getDocs(favCollection);
+
+    return querySnapshot.docs.map(doc => ({
+      id: doc.data()['id'],
+      ...doc.data()
+    }));
   }
 
 
