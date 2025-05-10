@@ -17,7 +17,7 @@ import { NgFor } from '@angular/common';
     HttpClientModule,
     CardComponent,
     PaginationComponent,
-    NgFor
+    NgFor,
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
@@ -31,7 +31,10 @@ export class HomePageComponent {
   supportedLanguages: string[] = [];
   selectedLanguage: string = 'en';
 
-  constructor(private moviesService: MoviesService, private languageService: LanguageService) {}
+  constructor(
+    private moviesService: MoviesService,
+    private languageService: LanguageService
+  ) {}
 
   ngOnInit() {
     this.loadPopularMovies();
@@ -84,13 +87,36 @@ export class HomePageComponent {
         return lang;
     }
   }
-  
+
   handleLanguageChange(event: Event): void {
     const target = event.target as HTMLSelectElement;
     const lang = target.value;
     this.onLanguageChange(lang);
   }
-  
 
+  get welcomeTitle(): string {
+    switch (this.selectedLanguage) {
+      case 'ar':
+        return 'مرحبًا بك في تطبيق الأفلام الخاص بنا';
+      case 'fr':
+        return 'Bienvenue dans notre application de films';
+      case 'zh':
+        return '欢迎使用我们的电影应用';
+      default:
+        return 'Welcome to our movie app';
+    }
+  }
+
+  get welcomeSubtitle(): string {
+    switch (this.selectedLanguage) {
+      case 'ar':
+        return 'ملايين من الأفلام، والمسلسلات، والشخصيات لتكتشفها. استكشف الآن.';
+      case 'fr':
+        return 'Des millions de films, séries et personnes à découvrir. Explorez maintenant.';
+      case 'zh':
+        return '数以百万计的电影、电视剧和人物等你发现。立即探索。';
+      default:
+        return 'Millions of movies, TV shows and people to discover. Explore now.';
+    }
+  }
 }
-

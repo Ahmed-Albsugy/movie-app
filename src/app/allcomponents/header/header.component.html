@@ -3,15 +3,16 @@
   <div class="container-fluid">
     <div>
       <a class="nav-link" routerLink="/home-page" routerLinkActive="active"
-        style="color: #0a4275; font-weight: bold;">Movie App</a>
+        style="color: #0a4275; font-weight: bold">Movie App</a>
     </div>
 
     <div class="d-flex align-items-center gap-3 me-5">
-
       <!--  Show full menu only if user is logged in and email is verified -->
-      <div class="d-flex align-items-center gap-3" *ngIf="isLoggedIn && isEmailVerified && currentRoute === '/home-page'; else showSignupOnly">
-
-        <a routerLink="/watchlist" routerLinkActive="active" class="icon-link" style="color: black;">
+      <div class="d-flex align-items-center gap-3" *ngIf="
+          isLoggedIn && isEmailVerified && currentRoute === '/home-page';
+          else showSignupOnly
+        ">
+        <a routerLink="/watchlist" routerLinkActive="active" class="icon-link" style="color: black">
           <i class="fas fa-heart"></i></a>
         <span class="text-dark" *ngIf="userName">
           <i class="far fa-user"></i> {{ userName }}
@@ -21,33 +22,15 @@
         </button>
 
         <!-- ! wish list counter -->
-      <div class="d-flex align-items-center gap-5" routerLink="/watchlist">
-        <!-- <a routerLink="/wishlist" class="icon-link position-relative d-flex align-items-center text-dark">watchlist
-          <span *ngIf="wishlistCount > 0" class="position-absolute" style="
-          top: -10px;
-          left: 105%;
-          background-color: transparent;
-          color: black;
-          font-size: 0.75rem;
-          width: 22px;
-          height: 22px;
-          border-radius: 10%;
-        ">
-            {{ wishlistCount }}
-              </span>
-        </a> -->
-      </div>
+       
       </div>
       <ng-template #showSignupOnly>
-
         <!--  Show only Sign Up if user is not verified -->
-        <a routerLink="/signup" routerLinkActive="active" class="icon-link" style="color: black;">
+        <a routerLink="/signup" routerLinkActive="active" class="icon-link" style="color: black">
           Sign Up
         </a>
       </ng-template>
-
     </div>
-    
   </div>
 </nav>
 <!-- Navbar -->
