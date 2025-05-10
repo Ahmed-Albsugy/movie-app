@@ -25,6 +25,10 @@ export class SignupComponent {
   // Toast property
   showToast = false;
   toastMessage = '';
+  //toggle password visibility
+  showPassword: boolean = false;
+  showRepeatPassword: boolean = false;
+
 
   constructor(private authService: AuthService, private router: Router, private toastService: ToastService) { }
 
@@ -54,14 +58,14 @@ export class SignupComponent {
       // this.toastService.showSuccess(`Welcome ${this.name}, you have successfully signed up!`);
       //  Send email verification
       const auth = getAuth();
-    const user = auth.currentUser;
-    if (user) {
-      await sendEmailVerification(user);
-      this.toastService.showSuccess(`Welcome ${this.name}! Please check your email to verify your account.`);
-      this.successMessage = 'Signup successful! Please verify your email before logging in.';
+      const user = auth.currentUser;
+      if (user) {
+        await sendEmailVerification(user);
+        this.toastService.showSuccess(`Welcome ${this.name}! Please check your email to verify your account.`);
+        this.successMessage = 'Signup successful! Please verify your email before logging in.';
 
-      this.router.navigate(['/verify-email']);
-    }
+        this.router.navigate(['/verify-email']);
+      }
 
       // Reset form
       this.name = '';

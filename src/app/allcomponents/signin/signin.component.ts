@@ -72,7 +72,6 @@ export class SigninComponent {
       // 2. Get the display name from Firebase Auth
       const auth = getAuth();
       await auth.currentUser?.reload(); // refresh user data
-
       const currentUser = auth.currentUser;
       const displayName = currentUser?.displayName || 'User';
 
@@ -89,11 +88,34 @@ export class SigninComponent {
       await auth.currentUser?.reload();
       this.router.navigate(['/home-page']);
 
-    } catch (error: any) {
+    } 
+    catch (error: any) {
+
       console.error('Login error:', error);
-    } finally {
-      this.isLoading = false;
+      switch (error.code) {
+        case 'auth/user-not-found':
+        case 'auth/wrong-password':
+          this.errorMessage = 'Incorrect email or password.';
+          break;
+        case 'auth/invalid-email':
+          this.errorMessage = 'Invalid email address.';
+          break;
+
+        case 'auth/too-many-requests':
+          this.errorMessage = 'Too many failed attempts. Try again later.';
+          break;
+
+        default:
+          this.errorMessage = 'Login failed. Please try again.';
+          break;
+
+      }
+        this.toastService.showSuccess(this.errorMessage);
+
     }
+    // finally {
+    //   this.isLoading = false;
+    // }
 
 
 

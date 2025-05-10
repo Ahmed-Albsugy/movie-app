@@ -7,34 +7,41 @@ import { getAuth } from 'firebase/auth';
 
 @Component({
   selector: 'app-header',
-  standalone:true,
-  imports: [RouterModule, CommonModule ],
+  standalone: true,
+  imports: [RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
-export class HeaderComponent implements OnInit{
+export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   userName: string | null = null;
   isEmailVerified: boolean = false;
+  currentRoute: string = '';
 
   wishlistCount=5;
 
 
 
-  constructor(private authService: AuthService, private router: Router) {}
+
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.router.events.subscribe(() => {
+      this.currentRoute = this.router.url;
+    });
+
+
     this.authService.currentUser.subscribe(async (user) => {
       this.isLoggedIn = !!user;
       this.userName = user?.displayName || null;
-//Check email verification
+      //Check email verification
       if (user) {
-      const auth = getAuth();
-      await auth.currentUser?.reload();// refresh the data
-      this.isEmailVerified = auth.currentUser?.emailVerified ?? false;
-    } else {
-      this.isEmailVerified = false;
-    }
+        const auth = getAuth();
+        await auth.currentUser?.reload();// refresh the data
+        this.isEmailVerified = auth.currentUser?.emailVerified ?? false;
+      } else {
+        this.isEmailVerified = false;
+      }
     });
   }
 
