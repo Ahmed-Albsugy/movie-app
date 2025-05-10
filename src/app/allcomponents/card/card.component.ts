@@ -17,6 +17,13 @@ export class CardComponent {
 
   constructor(private router: Router, private favMoviesService: FavMoviesService) { }
 
+
+  ngOnChanges(): void {
+    this.movies.forEach((movie) => {
+      movie.favorite = movie.favorite || false; // add this default
+    });
+  }
+
   trackById(index: number, movie: any): number {
     return movie.id;
   }
