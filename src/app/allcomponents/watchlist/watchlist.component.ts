@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WatchMovie } from '../../models/watch-movie';
-import { WatchMovieService } from '../../services/watch-movie.service';
+import { FavMoviesService } from '../../services/fav-movies.service';
 
 @Component({
   selector: 'app-watchlist',
@@ -20,23 +20,23 @@ export class WatchlistComponent {
   movies: WatchMovie[] = [];
 
 
-  constructor(private movieService: WatchMovieService) { }
+  constructor(private favMoviesService: FavMoviesService) { }
 
   ngOnInit(): void {
-    this.displayMovies()
+    this.loadWatchlist();
   }
 
-  displayMovies(): void {
-    this.movieService.getMovies().subscribe({
-      next: (res) => {
-        console.log(res.results);
-        this.movies = res.results;
-      },
-      error: (err) => {
-        console.error('Error fetching movies:', err);
-      }
-    });
+  // display movies from firestore 
+  async loadWatchlist() {
+    try {
+      this.movies = await this.favMoviesService.getFavoriteMovies();
+    } catch (error) {
+      console.error(' Failed to load favorites from Firestore:', error);
+    }
   }
+
+
+
 
 
 }
