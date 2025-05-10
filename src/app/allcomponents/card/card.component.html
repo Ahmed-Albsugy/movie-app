@@ -2,7 +2,7 @@
   <div class="row">
     <div
       class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
-      *ngFor="let movie of movies(); trackBy: trackById; let i = index"
+      *ngFor="let movie of movies; trackBy: trackById; let i = index"
     >
       <div class="card rounded" style="width: 100%; max-width: 200px">
         <div class="image-container position-relative">

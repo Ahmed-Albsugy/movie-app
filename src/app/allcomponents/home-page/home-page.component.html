@@ -13,6 +13,11 @@
   </div>
 </div>
 <div class="container">
-  <app-card></app-card>
-  <app-pagination></app-pagination>
+  <app-card [movies]="popularMovies"></app-card>
+  <app-pagination
+  [currentPage]="currentPage"
+  [totalPages]="totalPages"
+  (pageChange)="onPageChange($event)"
+></app-pagination>
+
 </div>

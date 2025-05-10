@@ -45,21 +45,13 @@ export class HomePageComponent {
     });
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadPopularMovies();
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadPopularMovies();
-    }
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.loadPopularMovies();
   }
 
   trackById(index: number, movie: any): number {
     return movie.id;
   }
 }
+

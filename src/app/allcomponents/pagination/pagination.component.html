@@ -1,22 +1,17 @@
-<div class="container-fluid">
-    <nav aria-label="...">
-      <ul class="pagination d-flex justify-content-center">
-        <li class="page-item disabled">
-          <span class="page-link">Previous</span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item active">
-          <span class="page-link">
-            2
-            <span class="sr-only">(current)</span>
-          </span>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">4</a></li>
-        <li class="page-item">
-          <a class="page-link" href="#">Next</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  
+<ul class="pagination d-flex justify-content-center">
+  <li class="page-item" [class.disabled]="currentPage === 1">
+    <button class="page-link" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">Previous</button>
+  </li>
+
+  <li
+    *ngFor="let page of getPages(); let i = index"
+    class="page-item"
+    [class.active]="page === currentPage"
+  >
+    <button class="page-link" (click)="changePage(page)">{{ page }}</button>
+  </li>
+
+  <li class="page-item" [class.disabled]="currentPage === totalPages">
+    <button class="page-link" (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages">Next</button>
+  </li>
+</ul>
