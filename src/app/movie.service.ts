@@ -14,9 +14,4 @@ export class MovieService {
     const url = `${this.baseUrl}/movie/${movieId}?api_key=${this.apiKey}`;
     return this.http.get<any>(url);
   }
-
-  getPopularMovies(): Observable<any> {
-    const url = `${this.baseUrl}/movie/popular?api_key=${this.apiKey}`;
-    return this.http.get<any>(url);
-  }
 }
