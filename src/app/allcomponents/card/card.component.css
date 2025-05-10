@@ -70,3 +70,7 @@
   fill: #ffc107;
   stroke: #ffc107;
 }
+
+.text-warning {
+  color: #ffc107 !important;
+}
