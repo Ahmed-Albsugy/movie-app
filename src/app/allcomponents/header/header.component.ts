@@ -21,6 +21,9 @@ export class HeaderComponent implements OnInit {
   isEmailVerified: boolean = false;
   currentRoute: string = '';
 
+  wishlistCount=5;
+
+
 
 
   constructor(private authService: AuthService, private router: Router) { }
@@ -54,5 +57,7 @@ export class HeaderComponent implements OnInit {
         console.error('Logout error:', error);
       });
   }
+
+  
 
 }
