@@ -4,9 +4,6 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { getAuth } from 'firebase/auth';
 
-// import { faUser as faRegularUser } from '@fortawesome/free-regular-svg-icons';
-
-
 
 @Component({
   selector: 'app-header',

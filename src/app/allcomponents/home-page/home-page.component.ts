@@ -5,6 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MoviesService } from '../../services/movies.service';
 import { CardComponent } from '../card/card.component';
 import { PaginationComponent } from './../pagination/pagination.component';
+import { LanguageService } from '../../services/language.service';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-home-page',
@@ -15,6 +17,7 @@ import { PaginationComponent } from './../pagination/pagination.component';
     HttpClientModule,
     CardComponent,
     PaginationComponent,
+    NgFor
   ],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css',
@@ -25,11 +28,16 @@ export class HomePageComponent {
   currentPage: number = 1;
   totalPages: number = 1;
 
-  constructor(private moviesService: MoviesService) {}
+  supportedLanguages: string[] = [];
+  selectedLanguage: string = 'en';
+
+  constructor(private moviesService: MoviesService, private languageService: LanguageService) {}
 
   ngOnInit() {
     this.loadPopularMovies();
     this.loadNowPlayingMovies();
+    this.supportedLanguages = this.languageService.getSupportedLanguages();
+    this.selectedLanguage = this.languageService.getLanguage();
   }
 
   loadPopularMovies() {
@@ -53,5 +61,36 @@ export class HomePageComponent {
   trackById(index: number, movie: any): number {
     return movie.id;
   }
+
+  onLanguageChange(lang: string) {
+    this.languageService.setLanguage(lang);
+    this.selectedLanguage = lang;
+    // إعادة تحميل البيانات باللغة الجديدة
+    this.loadPopularMovies();
+    this.loadNowPlayingMovies();
+  }
+
+  getLanguageName(lang: string): string {
+    switch (lang) {
+      case 'en':
+        return 'English';
+      case 'ar':
+        return 'العربية';
+      case 'fr':
+        return 'Français';
+      case 'zh':
+        return '中文';
+      default:
+        return lang;
+    }
+  }
+  
+  handleLanguageChange(event: Event): void {
+    const target = event.target as HTMLSelectElement;
+    const lang = target.value;
+    this.onLanguageChange(lang);
+  }
+  
+
 }
 
