@@ -80,7 +80,7 @@ export class FavMoviesService {
     }
   }
 
-  // Method to get all favorite movies
+  // get all favorite movies from Firestore
   async getFavoriteMovies(): Promise<any[]> {
     try {
       const favCollection = this.getUserFavCollection();
