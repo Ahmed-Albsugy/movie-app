@@ -6,17 +6,12 @@ import { AuthService } from '../../services/auth.service';
 import { ToastService } from '../../services/toast.service';
 import { getAuth, updateProfile } from 'firebase/auth';
 
-
-
-
 @Component({
   selector: 'app-signin',
   imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './signin.component.html',
-  styleUrl: './signin.component.css'
+  styleUrl: './signin.component.css',
 })
-
-
 export class SigninComponent {
   name: string = '';
   email: string = '';
@@ -33,8 +28,7 @@ export class SigninComponent {
     private authService: AuthService,
     private router: Router,
     private toastService: ToastService
-  ) { }
-
+  ) {}
 
   // //////// validate email
 
@@ -80,17 +74,18 @@ export class SigninComponent {
       // this.router.navigate(['/home-page']);
       const isVerified = auth.currentUser?.emailVerified;
       if (!isVerified) {
-        this.toastService.showSuccess('Please verify your email before logging in.');
+        this.toastService.showSuccess(
+          'Please verify your email before logging in.'
+        );
         return;
       }
       // ✅ Verified → Redirect to home
-      this.toastService.showSuccess(`Welcome ${displayName}, you have successfully signed in!`);
+      this.toastService.showSuccess(
+        `Welcome ${displayName}, you have successfully signed in!`
+      );
       await auth.currentUser?.reload();
       this.router.navigate(['/home-page']);
-
-    } 
-    catch (error: any) {
-
+    } catch (error: any) {
       console.error('Login error:', error);
       switch (error.code) {
         case 'auth/user-not-found':
@@ -108,18 +103,11 @@ export class SigninComponent {
         default:
           this.errorMessage = 'Login failed. Please try again.';
           break;
-
       }
-        this.toastService.showSuccess(this.errorMessage);
-
+      this.toastService.showSuccess(this.errorMessage);
     }
     // finally {
     //   this.isLoading = false;
     // }
-
-
-
   }
-
-
 }

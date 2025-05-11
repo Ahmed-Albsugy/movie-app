@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { NgClass, NgFor, NgIf } from '@angular/common';
 import { FavMoviesService } from '../../services/fav-movies.service';
+import { Auth } from '@angular/fire/auth';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-card',
@@ -27,7 +29,9 @@ export class CardComponent {
   /*******  fc248509-bbe5-4572-bd54-f85fd67dc710  *******/
   constructor(
     private router: Router,
-    private favMoviesService: FavMoviesService
+    private favMoviesService: FavMoviesService,
+    private auth: Auth,
+    private toastr: ToastService
   ) {}
   async ngOnInit() {
     this.isFavorite = await this.checkIfFavorite();
@@ -76,7 +80,18 @@ export class CardComponent {
   //     console.error('🔥 Error in toggleFavorite:', err);
   //   }
   // }
+  public getAuthUser() {
+    return this.auth.currentUser;
+  }
+  public get currentUser() {
+    return this.auth.currentUser;
+  }
   async toggleFavorite() {
+    const user = this.auth.currentUser;
+    if (!user) {
+      this.toastr.warning('Please sign in to add favorites');
+      return;
+    }
     if (!this.movie) {
       console.warn('No movie passed to the component!');
       return;
