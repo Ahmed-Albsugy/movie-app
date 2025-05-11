@@ -74,3 +74,6 @@
 .text-warning {
   color: #ffc107 !important;
 }
+svg {
+  transition: fill 0.3s ease;
+}
