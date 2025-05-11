@@ -134,7 +134,7 @@
 <!-- الأفلام الموصى بها -->
 <div *ngIf="recommendedMovies.length > 0" class="container mt-5 text-center">
   <h3 class="mb-4">Recommended Movies</h3>
-  <div class="row">
+  <!-- <div class="row">
     <div
       class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
       *ngFor="
@@ -146,7 +146,7 @@
         <div class="image-container position-relative">
           <div class="position-absolute top-end-10">
             <span class="more" (click)="toggleDropdown(i)">
-              <!-- ثلاث نقاط -->
+              <!-- ثلاث نقاط
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -189,7 +189,7 @@
               (click)="toggleFavorite()"
               [ngClass]="{ active: movie.favorite }"
             >
-              <!-- أيقونة -->
+              <!-- أيقونة
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -210,8 +210,21 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+        *ngFor="
+          let movie of recommendedMovies.slice(0, maxRecommended);
+          trackBy: trackById;
+          let i = index
+        "
+      >
+        <app-card [index]="i" [movie]="movie"></app-card>
+      </div>
+    </div>
   </div>
-
   <!-- زر Add More -->
   <button
     *ngIf="maxRecommended < recommendedMovies.length"

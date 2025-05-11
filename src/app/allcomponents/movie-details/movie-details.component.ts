@@ -4,10 +4,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FavMoviesService } from '../../services/fav-movies.service';
 import { Auth } from '@angular/fire/auth';
+import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-movie-details',
-  imports: [HttpClientModule, RouterModule, CommonModule],
+  imports: [HttpClientModule, RouterModule, CommonModule, CardComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css',
@@ -69,6 +70,9 @@ export class MovieDetailsComponent implements OnInit {
   toggleDropdown(index: number): void {
     this.openedDropdownIndex =
       this.openedDropdownIndex === index ? null : index;
+  }
+  trackById(index: number, movie: any): number {
+    return movie.id;
   }
 
   // toggleFavorite(movie: any): void {
