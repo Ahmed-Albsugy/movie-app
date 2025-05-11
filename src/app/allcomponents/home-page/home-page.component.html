@@ -27,9 +27,9 @@
 </div>
 <div class="container">
   <div class="container-fluid mt-5">
-    <div class="row">
+    <div class="row ">
       <div
-        class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+        class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
         *ngFor="let movie of popularMovies; trackBy: trackById; let i = index"
       >
         <app-card [index]="i" [movie]="movie"></app-card>

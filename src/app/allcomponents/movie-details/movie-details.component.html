@@ -1,62 +1,40 @@
-<div
-  *ngIf="movieDetails"
-  class="container mt-5 py-3"
-  style="
+<div *ngIf="movieDetails" class="container py-3  detailedCard w-75" style="
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
     transform: translateY(-10px);
     border-radius: 15px;
-  "
->
+  ">
   <div class="row">
     <div class="col-md-4">
-      <img
-        [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path"
-        alt="{{ movieDetails.title }}"
-        class="img-fluid"
-        style="border-radius: 15px"
-      />
+      <img [src]="'https://image.tmdb.org/t/p/w500' + movieDetails.poster_path" alt="{{ movieDetails.title }}"
+        class="img-fluid" style="border-radius: 15px" />
     </div>
     <div class="col-md-8">
       <!-- تفاصيل الفيلم على اليمين -->
+       <div class="d-flex justify-content-between align-items-center">
       <h2 class="d-flex justify-content-between align-items-center">
         {{ movieDetails.title }}
         <!-- <i class="fa fa-heart" style="cursor: pointer; color: yellow"></i> -->
       </h2>
-      <button
-        class="fav-btn active"
-        title="Add to favorites"
-        (click)="toggleFavorite()"
-        [class.active]="isFavorite"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          stroke="currentColor"
-          stroke-width="6"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
+      <button class="fav-btn active" title="Add to favorites" (click)="toggleFavorite()" [class.active]="isFavorite">
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+          stroke="currentColor" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
           <path
-            d="m479-60-87-79q-108-98-178-168.5T104-434q-40-56-55.5-103.5T33-637q0-113 76-189.5T298-903q50 0 96.5 17.5T479-836q38-32 84.5-49.5T660-903q113 0 190 76.5T927-637q0 51-15.5 98.5t-55.5 103Q816-380 746-309T566-139l-87 79Z"
-          />
+            d="m479-60-87-79q-108-98-178-168.5T104-434q-40-56-55.5-103.5T33-637q0-113 76-189.5T298-903q50 0 96.5 17.5T479-836q38-32 84.5-49.5T660-903q113 0 190 76.5T927-637q0 51-15.5 98.5t-55.5 103Q816-380 746-309T566-139l-87 79Z" />
         </svg>
       </button>
+ </div>
 
       <p class="text-muted d-flex justify-content-strat">
         {{ movieDetails.release_date }}
       </p>
 
-      <p>
+      <p >
         <ng-container *ngFor="let star of [1, 2, 3, 4, 5]; let i = index">
-          <i
-            [ngClass]="
+          <i [ngClass]="
               i < movieDetails.vote_average / 2
                 ? 'fas fa-star text-warning'
                 : 'far fa-star text-secondary'
-            "
-          ></i>
+            "></i>
         </ng-container>
         ({{ movieDetails.vote_average | number : "1.1-1" }}/10)
       </p>
@@ -88,41 +66,28 @@
       <!-- زر الانتاج -->
       <p>
         <!-- زر الزيارة مع رابط الموقع -->
-        <span
-          *ngIf="movieDetails.homepage"
-          class="d-inline-block p-2 text-warning"
-          style="
+        <span *ngIf="movieDetails.homepage" class="d-inline-block p-2 text-warning" style="
             border: 2px solid;
             border-radius: 25px;
             background-color: white;
-          "
-        >
-          <a
-            [href]="movieDetails.homepage"
-            target="_blank"
-            class="text-dark text-decoration-none"
-            style="
+          ">
+          <a [href]="movieDetails.homepage" target="_blank" class="text-dark text-decoration-none" style="
               padding: 5px 15px;
               border-radius: 25px;
               display: inline-block;
-            "
-          >
+            ">
             Visit Website
           </a>
         </span>
 
         <!-- رسالة في حالة عدم وجود الموقع -->
-        <span
-          *ngIf="!movieDetails.homepage"
-          class="d-inline-block"
-          style="
+        <span *ngIf="!movieDetails.homepage" class="d-inline-block" style="
             border: 2px solid rgb(255 191 0);
             color: black;
             border-radius: 25px;
             background-color: white;
             padding: 12px;
-          "
-        >
+          ">
           No website available
         </span>
       </p>
@@ -213,24 +178,17 @@
   </div> -->
   <div class="container-fluid mt-5">
     <div class="row">
-      <div
-        class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
-        *ngFor="
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-4 d-flex justify-content-center" *ngFor="
           let movie of recommendedMovies.slice(0, maxRecommended);
           trackBy: trackById;
           let i = index
-        "
-      >
+        ">
         <app-card [index]="i" [movie]="movie"></app-card>
       </div>
     </div>
   </div>
   <!-- زر Add More -->
-  <button
-    *ngIf="maxRecommended < recommendedMovies.length"
-    class="btn btn-warning mt-4 mb-4"
-    (click)="loadMore()"
-  >
+  <button *ngIf="maxRecommended < recommendedMovies.length" class="btn btn-warning mt-4 mb-4" (click)="loadMore()">
     Show more
   </button>
 </div>
