@@ -23,6 +23,8 @@ import { NgFor } from '@angular/common';
   styleUrl: './home-page.component.css',
 })
 export class HomePageComponent {
+  movie: any;
+  movies: any[] = [];
   popularMovies: any[] = [];
   nowPlayingMovies: any[] = [];
   currentPage: number = 1;

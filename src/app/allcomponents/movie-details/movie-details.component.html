@@ -20,8 +20,29 @@
       <!-- تفاصيل الفيلم على اليمين -->
       <h2 class="d-flex justify-content-between align-items-center">
         {{ movieDetails.title }}
-        <i class="fa fa-heart" style="cursor: pointer; color: yellow"></i>
+        <!-- <i class="fa fa-heart" style="cursor: pointer; color: yellow"></i> -->
       </h2>
+      <button
+        class="fav-btn active"
+        title="Add to favorites"
+        (click)="toggleFavorite()"
+        [class.active]="isFavorite"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          height="24px"
+          viewBox="0 -960 960 960"
+          width="24px"
+          stroke="currentColor"
+          stroke-width="6"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="m479-60-87-79q-108-98-178-168.5T104-434q-40-56-55.5-103.5T33-637q0-113 76-189.5T298-903q50 0 96.5 17.5T479-836q38-32 84.5-49.5T660-903q113 0 190 76.5T927-637q0 51-15.5 98.5t-55.5 103Q816-380 746-309T566-139l-87 79Z"
+          />
+        </svg>
+      </button>
 
       <p class="text-muted d-flex justify-content-strat">
         {{ movieDetails.release_date }}
@@ -113,7 +134,7 @@
 <!-- الأفلام الموصى بها -->
 <div *ngIf="recommendedMovies.length > 0" class="container mt-5 text-center">
   <h3 class="mb-4">Recommended Movies</h3>
-  <div class="row">
+  <!-- <div class="row">
     <div
       class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
       *ngFor="
@@ -125,7 +146,7 @@
         <div class="image-container position-relative">
           <div class="position-absolute top-end-10">
             <span class="more" (click)="toggleDropdown(i)">
-              <!-- ثلاث نقاط -->
+              <!-- ثلاث نقاط
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -165,10 +186,10 @@
             <button
               class="fav-btn"
               title="Add to favorites"
-              (click)="toggleFavorite(movie)"
+              (click)="toggleFavorite()"
               [ngClass]="{ active: movie.favorite }"
             >
-              <!-- أيقونة -->
+              <!-- أيقونة
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 height="24px"
@@ -189,8 +210,21 @@
         </div>
       </div>
     </div>
+  </div> -->
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+        *ngFor="
+          let movie of recommendedMovies.slice(0, maxRecommended);
+          trackBy: trackById;
+          let i = index
+        "
+      >
+        <app-card [index]="i" [movie]="movie"></app-card>
+      </div>
+    </div>
   </div>
-
   <!-- زر Add More -->
   <button
     *ngIf="maxRecommended < recommendedMovies.length"
