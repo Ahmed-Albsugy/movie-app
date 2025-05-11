@@ -47,7 +47,7 @@
         class="fav-btn"
         title="Add to favorites"
         (click)="toggleFavorite()"
-        [class.active]="isFavorite"
+        [class.active]="isFavorite && currentUser"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

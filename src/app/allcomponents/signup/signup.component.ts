@@ -6,12 +6,11 @@ import { Router } from '@angular/router';
 import { ToastService } from '../../services/toast.service';
 import { getAuth, sendEmailVerification } from 'firebase/auth';
 
-
 @Component({
   selector: 'app-signup',
-  imports: [CommonModule, FormsModule,],
+  imports: [CommonModule, FormsModule],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrl: './signup.component.css',
 })
 export class SignupComponent {
   name: string = '';
@@ -29,9 +28,11 @@ export class SignupComponent {
   showPassword: boolean = false;
   showRepeatPassword: boolean = false;
 
-
-  constructor(private authService: AuthService, private router: Router, private toastService: ToastService) { }
-
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
 
   get passwordMismatch(): boolean {
     if (!this.password || !this.repeatPassword) {
@@ -50,7 +51,10 @@ export class SignupComponent {
     }
     try {
       // Create user account
-      const userCredential = await this.authService.signUp(this.email, this.password);
+      const userCredential = await this.authService.signUp(
+        this.email,
+        this.password
+      );
 
       //  Update user profile with display name
       await this.authService.updateUserProfile(this.name);
@@ -61,8 +65,11 @@ export class SignupComponent {
       const user = auth.currentUser;
       if (user) {
         await sendEmailVerification(user);
-        this.toastService.showSuccess(`Welcome ${this.name}! Please check your email to verify your account.`);
-        this.successMessage = 'Signup successful! Please verify your email before logging in.';
+        this.toastService.showSuccess(
+          `Welcome ${this.name}! Please check your email to verify your account.`
+        );
+        this.successMessage =
+          'Signup successful! Please verify your email before logging in.';
 
         this.router.navigate(['/verify-email']);
       }
@@ -80,13 +87,10 @@ export class SignupComponent {
       // setTimeout(() => {
       //   this.router.navigate(['/home-page']);
       // }, 2000);
-
-
     } catch (error: any) {
       console.error('Signup error:', error);
       this.errorMessage = this.getFriendlyErrorMessage(error.code);
     }
-
   }
   // ==============================================
   // Helper function for user-friendly error messages
@@ -102,5 +106,4 @@ export class SignupComponent {
         return 'An error occurred during signup. Please try again.';
     }
   }
-
 }
