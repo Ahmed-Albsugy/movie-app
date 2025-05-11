@@ -23,8 +23,7 @@
                                 <span class="text-warning">
                                   <!--  stars rating -->
                                   <ng-container *ngFor="let star of [].constructor(5); let i = index">
-                                    <i
-                                      class="fa"
+                                    <i class="fa"
                                       [ngClass]="{
                                         'fa-star': i < movie.vote_average / 2,
                                         'fa-star-o': i >= movie.vote_average / 2

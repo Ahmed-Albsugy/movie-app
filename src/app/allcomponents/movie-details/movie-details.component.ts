@@ -1,12 +1,12 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from '../card/card.component';
 
 @Component({
   selector: 'app-movie-details',
-  imports: [HttpClientModule, RouterModule, CommonModule, CardComponent],
+  imports: [ RouterModule, CommonModule, CardComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css',

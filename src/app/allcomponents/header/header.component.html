@@ -8,10 +8,11 @@
 
     <div class="d-flex align-items-center gap-3 me-5">
       <!--  Show full menu only if user is logged in and email is verified -->
-      <div class="d-flex align-items-center gap-3" *ngIf="
+      <!-- <div class="d-flex align-items-center gap-3" *ngIf="
           isLoggedIn && isEmailVerified && currentRoute === '/home-page';
           else showSignupOnly
-        ">
+        "> -->
+      <div class="d-flex align-items-center gap-3" *ngIf="isLoggedIn && isEmailVerified; else showSignupOnly">
         <a routerLink="/watchlist" routerLinkActive="active" class="icon-link" style="color: black">
           <i class="fas fa-heart"></i></a>
         <span class="text-dark" *ngIf="userName">
@@ -22,7 +23,7 @@
         </button>
 
         <!-- ! wish list counter -->
-       
+
       </div>
       <ng-template #showSignupOnly>
         <!--  Show only Sign Up if user is not verified -->

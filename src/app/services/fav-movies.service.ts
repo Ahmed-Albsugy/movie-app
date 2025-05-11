@@ -9,6 +9,7 @@ export class FavMoviesService {
 
   constructor(private firestore: Firestore) { }
 
+  // add movie to favorites (Firestore database)
   async addToFavorites(movie: any): Promise<void> {
     try {
       const favCollection = collection(this.firestore, 'FavMovies');
@@ -40,6 +41,7 @@ export class FavMoviesService {
     }
   }
 
+  // remove movie from favorites (Firestore database)
 
   async removeFromFavoritesById(movieId: number): Promise<void> {
     const favCollection = collection(this.firestore, 'FavMovies');
@@ -54,7 +56,7 @@ export class FavMoviesService {
   }
 
 
-  // Method to get all favorite movies
+  // get all favorite movies from Firestore
   async getFavoriteMovies(): Promise<any[]> {
     const favCollection = collection(this.firestore, 'FavMovies');
     const querySnapshot = await getDocs(favCollection);
