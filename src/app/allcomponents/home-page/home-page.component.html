@@ -1,7 +1,14 @@
-<div class="container bg-light my-5 py-5 px-4 rounded-1" style="min-height: 40vh">
+<div
+  class="container bg-light my-5 py-5 px-4 rounded-1"
+  style="min-height: 40vh"
+>
   <!--! Language Selector -->
   <div class="text-end mb-3">
-    <select class="form-select w-auto d-inline" [value]="selectedLanguage" (change)="handleLanguageChange($event)">
+    <select
+      class="form-select w-auto d-inline"
+      [value]="selectedLanguage"
+      (change)="handleLanguageChange($event)"
+    >
       <option *ngFor="let lang of supportedLanguages" [value]="lang">
         {{ getLanguageName(lang) }}
       </option>
@@ -19,7 +26,19 @@
   </div>
 </div>
 <div class="container">
-  <app-card [movies]="popularMovies"></app-card>
-  <app-pagination [currentPage]="currentPage" [totalPages]="totalPages"
-    (pageChange)="onPageChange($event)"></app-pagination>
+  <div class="container-fluid mt-5">
+    <div class="row">
+      <div
+        class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"
+        *ngFor="let movie of popularMovies; trackBy: trackById; let i = index"
+      >
+        <app-card [index]="i" [movie]="movie"></app-card>
+      </div>
+    </div>
+  </div>
+  <app-pagination
+    [currentPage]="currentPage"
+    [totalPages]="totalPages"
+    (pageChange)="onPageChange($event)"
+  ></app-pagination>
 </div>

@@ -1,4 +1,4 @@
-.card {
+/* .card {
   background-color: #fff;
   border: none;
   border-radius: 10px;
@@ -60,6 +60,33 @@
   align-items: center;
 }
 
+.fav-btn svg {
+  fill: none;
+  stroke-width: 40;
+  stroke: #333;
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+.fav-btn.active svg {
+  fill: #ffc107;
+  stroke: #ffc107;
+}
+
+.mt-5 {
+  margin-top: 5rem !important;
+} */
+.fav-btn {
+  height: 40px;
+  width: 40px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .fav-btn svg {
   fill: none;
   stroke-width: 40;
