@@ -1,61 +1,80 @@
-<div class="container " *ngIf="movies.length > 0; else loading">
-    <h1>Wahtch List </h1>
-    <div class="movie-card mt-5">
-        <div class="row">
-          @for (movie of movies; track movie.id) {
-          <div class="col-lg-6 col-md-6 mb-4" >
-            <div class="card ">
-                <div class="row">
-                    <div class="col-4">
-
-                        <img [src]="imgUrl+movie.poster_path" class="card-img-top h-100" [alt]="movie.title">
-                    </div>
-
-                    <div class="col-8">
-                        <div class="card-body m-0">
-                            <div class=" d-flex justify-content-between">
-                              <h5 class="card-title fw-bold">{{movie.title}}</h5>
-                              <img src="/yellow-heart_.svg" alt="Favorite">
-                            </div>
-                            <span class="text-muted">{{movie.release_date | date}}</span>
-                            <div class="d-flex gap-2 mt-2">
-                              <p>
-                                <span class="text-warning">
-                                  <!--  stars rating -->
-                                  <ng-container *ngFor="let star of [].constructor(5); let i = index">
-                                    <i class="fa"
-                                      [ngClass]="{
-                                        'fa-star': i < movie.vote_average / 2,
-                                        'fa-star-o': i >= movie.vote_average / 2
-                                      }"
-                                    ></i>
-                                  </ng-container>
-                                </span>
-                                
-                              </p>
-                              <span class="text-muted"> {{movie.vote_count}}</span>
-                            </div>
-                            <p class="card-overview mt-2">{{movie.overview}}</p>
-                          </div>
-                    </div>
+<div class="container" *ngIf="movies.length > 0; else loading">
+  <h1>Watch List</h1>
+  <div class="movie-card mt-5">
+    <div class="row">
+      @for (movie of movies; track movie.id) {
+      <div class="col-lg-6 col-md-6 mb-4">
+        <div class="card">
+          <div class="row">
+            <div class="col-4">
+              <img
+                [src]="imgUrl + movie.poster_path"
+                class="card-img-top h-100"
+                [alt]="movie.title"
+              />
+            </div>
+            <div class="col-8">
+              <div class="card-body m-0">
+                <div class="d-flex justify-content-between">
+                  <h5 class="card-title fw-bold">{{ movie.title }}</h5>
+                  <!-- <button
+                    class="fav-btn"
+                    title="Add to favorites"
+                    (click)="toggleFavorite()"
+                    [class.active]="isFavorite && currentUser"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="24px"
+                      viewBox="0 -960 960 960"
+                      width="24px"
+                      stroke="currentColor"
+                      stroke-width="6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    >
+                      <path
+                        d="m479-60-87-79q-108-98-178-168.5T104-434q-40-56-55.5-103.5T33-637q0-113 76-189.5T298-903q50 0 96.5 17.5T479-836q38-32 84.5-49.5T660-903q113 0 190 76.5T927-637q0 51-15.5 98.5t-55.5 103Q816-380 746-309T566-139l-87 79Z"
+                      />
+                    </svg>
+                  </button> -->
                 </div>
-                
-              
-             
+                <span class="text-muted">{{ movie.release_date | date }}</span>
+                <div class="d-flex gap-2 mt-2">
+                  <p>
+                    <span class="text-warning">
+                      <!--  stars rating -->
+                      <ng-container
+                        *ngFor="let star of [].constructor(5); let i = index"
+                      >
+                        <i
+                          class="fa"
+                          [ngClass]="{
+                            'fa-star': i < movie.vote_average / 2,
+                            'fa-star-o': i >= movie.vote_average / 2
+                          }"
+                        ></i>
+                      </ng-container>
+                    </span>
+                  </p>
+                  <span class="text-muted"> {{ movie.vote_count }}</span>
+                </div>
+                <p class="card-overview mt-2">{{ movie.overview }}</p>
+              </div>
             </div>
           </div>
-          }
         </div>
       </div>
+      }
+    </div>
+  </div>
 </div>
 <ng-template #loading>
-  <div class="container  empty-container">
-
-    <img src="/icon _heart slash_.svg" alt="">
-    <p>No Movies in watch list </p>
+  <div class="container empty-container">
+    <img src="/icon _heart slash_.svg" alt="" />
+    <p>No Movies in watch list</p>
     <a routerLink="/home-page">
-        <button class="btn btn-warning  " >Back to home</button>
+      <button class="btn btn-warning">Back to home</button>
     </a>
-   
-</div>
-  </ng-template>
+  </div>
+</ng-template>

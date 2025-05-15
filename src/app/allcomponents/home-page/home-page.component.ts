@@ -79,12 +79,12 @@ export class HomePageComponent {
     switch (lang) {
       case 'en':
         return 'English';
-      case 'ar':
-        return 'العربية';
       case 'fr':
         return 'Français';
       case 'zh':
         return '中文';
+      case 'ar':
+        return 'العربية';
       default:
         return lang;
     }

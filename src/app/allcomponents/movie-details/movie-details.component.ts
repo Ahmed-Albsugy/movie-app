@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 import { FavMoviesService } from '../../services/fav-movies.service';
 import { Auth } from '@angular/fire/auth';
 import { CardComponent } from '../card/card.component';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-movie-details',
-  imports: [ RouterModule, CommonModule, CardComponent],
+  imports: [RouterModule, CommonModule, CardComponent],
   templateUrl: './movie-details.component.html',
   standalone: true,
   styleUrl: './movie-details.component.css',
@@ -19,7 +20,7 @@ export class MovieDetailsComponent implements OnInit {
   movieId!: number;
   movieDetails: any;
   recommendedMovies: any[] = [];
-  maxRecommended = 6;
+  maxRecommended = 4;
   movie: any;
   isFavorite: boolean = false;
 
@@ -31,7 +32,8 @@ export class MovieDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private favMoviesService: FavMoviesService,
-    private auth: Auth
+    private auth: Auth,
+    private toastr: ToastService
   ) {}
 
   async ngOnInit() {
@@ -58,7 +60,7 @@ export class MovieDetailsComponent implements OnInit {
     this.movie.favorite = this.movie.favorite || false; // add this default
   }
   loadMore(): void {
-    this.maxRecommended += 6;
+    this.maxRecommended += 4;
 
     if (this.maxRecommended > this.recommendedMovies.length) {
       this.maxRecommended = this.recommendedMovies.length;
@@ -79,20 +81,26 @@ export class MovieDetailsComponent implements OnInit {
   //   movie.favorite = !movie.favorite;
   // }
 
-  goToMovieDetails(id: number): void {
-    // علشان ينتقل لصفحة تفاصيل الفيلم
-    this.router.navigate(['/movie', id]);
-  }
+  // goToMovieDetails(id: number): void {
+  //   // علشان ينتقل لصفحة تفاصيل الفيلم
+  //   this.router.navigate(['/movie', id]);
+  // }
   async toggleFavorite() {
-    if (!this.movieId) {
+    const user = this.auth.currentUser;
+    if (!user) {
+      this.toastr.warning('Please sign in to add favorites');
+      return;
+    }
+    if (!this.movie) {
       console.warn('No movie passed to the component!');
       return;
     }
     if (this.isFavorite) {
-      await this.favMoviesService.removeFromFavoritesById(this.movieId);
+      await this.favMoviesService.removeFromFavoritesById(this.movie.id);
     } else {
       await this.favMoviesService.addToFavorites(this.movie);
     }
+
     this.isFavorite = !this.isFavorite;
   }
   async checkIfFavorite(): Promise<boolean> {
@@ -103,6 +111,13 @@ export class MovieDetailsComponent implements OnInit {
       console.error('Error checking favorite:', error);
       return false;
     }
+  }
+
+  public getAuthUser() {
+    return this.auth.currentUser;
+  }
+  public get currentUser() {
+    return this.auth.currentUser;
   }
 }
 

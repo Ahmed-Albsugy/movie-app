@@ -22,10 +22,10 @@ export class ToastService {
 
     toastEl.innerHTML = `
       <div class="d-flex">
-        <div class="toast-body">
+        <div class="toast-body" style="color: #333 !important;">
           ${message}
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     `;
     const toastContainer =
@@ -47,7 +47,7 @@ export class ToastService {
     type: 'success' | 'warning' | 'danger' | 'info' = 'info'
   ): void {
     const toastEl = document.createElement('div');
-    toastEl.className = 'toast align-items-center text-white bg-warning';
+    toastEl.className = 'toast align-items-center text-black bg-warning';
     toastEl.setAttribute('role', 'alert');
     toastEl.setAttribute('aria-live', 'assertive');
     toastEl.setAttribute('aria-atomic', 'true');
@@ -60,10 +60,10 @@ export class ToastService {
 
     toastEl.innerHTML = `
       <div class="d-flex">
-        <div class="toast-body">
+        <div class="toast-body" style="color: #333 !important;">
           ${message}
         </div>
-        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-close-black me-2 m-auto" data-bs-dismiss="toast" aria-label="Close" ></button>
       </div>
     `;
     const toastContainer =

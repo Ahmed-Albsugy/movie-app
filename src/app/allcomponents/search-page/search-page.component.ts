@@ -3,9 +3,9 @@ import { MoviesService } from './../../services/movies.service';
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../header/header.component';
 import { SearchformComponent } from '../searchform/searchform.component';
-import { CardComponent } from '../card/card.component';
 import { PaginationComponent } from './../pagination/pagination.component';
 import { NgClass, NgFor, NgIf } from '@angular/common';
+import { CardCopyComponent } from '../../card-copy/card-copy.component';
 
 @Component({
   selector: 'app-search-page',
@@ -16,7 +16,9 @@ import { NgClass, NgFor, NgIf } from '@angular/common';
     HeaderComponent,
     SearchformComponent,
     PaginationComponent,
-    CardComponent,
+    CardCopyComponent,
+    NgFor,
+    NgClass,
   ],
 })
 export class SearchPageComponent {
@@ -24,6 +26,7 @@ export class SearchPageComponent {
   currentPage: number = 1;
   totalPages: number = 1;
   searchTerm: string = '';
+  movies: any[] = [];
 
   constructor(
     private moviesService: MoviesService,
@@ -48,7 +51,6 @@ export class SearchPageComponent {
       this.currentPage = page;
     });
   }
-
   onPageChange(page: number) {
     this.searchMovies(page);
   }

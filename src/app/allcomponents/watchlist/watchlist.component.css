@@ -1,26 +1,25 @@
-
-   .container{
-    margin-top: 100px;
-   }
-   .card{
-    box-shadow: 5px 5px 25px rgb(179, 172, 172);
-
-   }
-   .card-overview {
-    display: -webkit-box;
-    -webkit-line-clamp: 4; /* Number of lines to show */
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: 1.5; /* Adjust line height as needed */
-    max-height: calc(1.5em * 4); /* line-height * number of lines */
-  }
-   .card-img-top {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+.container {
+  margin-top: 100px;
+}
+.card {
+  box-shadow: 5px 5px 25px rgb(179, 172, 172);
+  cursor: pointer;
+}
+.card-overview {
+  display: -webkit-box;
+  -webkit-line-clamp: 4; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5; /* Adjust line height as needed */
+  max-height: calc(1.5em * 4); /* line-height * number of lines */
+}
+.card-img-top {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 /* ===================================== */
-.empty-container{
+.empty-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -28,8 +27,32 @@
   text-align: center;
   min-height: 100vh;
 }
-.btn{
+.btn {
   padding-right: 6rem;
   padding-left: 6rem;
+}
 
+.fav-btn {
+  height: 40px;
+  width: 40px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.fav-btn svg {
+  fill: none;
+  stroke-width: 40;
+  stroke: #333;
+  transition: stroke 0.3s ease, fill 0.3s ease;
+}
+.fav-btn.active svg {
+  fill: #ffc107;
+  stroke: #ffc107;
 }

@@ -72,6 +72,9 @@ export class SignupComponent {
           'Signup successful! Please verify your email before logging in.';
 
         this.router.navigate(['/verify-email']);
+        if (user.emailVerified) {
+          this.router.navigate(['/home-page']);
+        }
       }
 
       // Reset form

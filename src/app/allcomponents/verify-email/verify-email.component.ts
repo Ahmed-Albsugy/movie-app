@@ -6,13 +6,13 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-verify-email',
   templateUrl: './verify-email.component.html',
-  styleUrls: ['./verify-email.component.css']
+  styleUrls: ['./verify-email.component.css'],
 })
 export class VerifyEmailComponent implements OnInit {
   message: string = 'Please verify your email...';
   isChecking = false;
 
-  constructor(private router: Router, private authService: AuthService) { }
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.startEmailCheckLoop();
@@ -29,11 +29,11 @@ export class VerifyEmailComponent implements OnInit {
         clearInterval(interval);
         this.authService.setUser(auth.currentUser); //updated user info to the header automatically
 
-        this.message = 'Email verified! Redirecting to login...';
+        this.message = 'Email verified! Redirecting to home page...';
         setTimeout(() => {
-          this.router.navigate(['/signin']);
+          this.router.navigate(['/home-page']);
         }, 1500);
       }
-    }, 3000); 
+    }, 3000);
   }
 }
