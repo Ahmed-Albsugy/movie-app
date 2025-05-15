@@ -4,11 +4,11 @@
     right: 20px;
     z-index: 1100;
   } */
-  .toast {
-    position: fixed;
-    top: 100px;                  /* 100px from the top */
-    left: 50%;                   /* Position the left edge in the middle */
-    transform: translateX(-50%); /* Shift back half its own width */
-    z-index: 1100;
-    min-width: 300px;
-  }
+.toast {
+  position: fixed;
+  top: 100px; /* 100px from the top */
+  left: 50%; /* Position the left edge in the middle */
+  transform: translateX(-50%); /* Shift back half its own width */
+  z-index: 1100;
+  min-width: 300px;
+}

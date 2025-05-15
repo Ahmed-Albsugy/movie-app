@@ -2,8 +2,12 @@
   background-color: #fff;
   border: none;
   border-radius: 10px;
-  width: 190px;
+  width: 300px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: all ease-in-out 0.2s;
+}
+.card:hover {
+  transform: scale(1.05);
 }
 .top-end-10 {
   right: 10px;
@@ -82,4 +86,7 @@ img {
 }
 svg {
   transition: fill 0.3s ease;
+}
+.release-date {
+  color: #333333c3;
 }

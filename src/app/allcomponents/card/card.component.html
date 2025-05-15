@@ -2,7 +2,8 @@
   <div class="row">
     <div class="col-lg-2 col-md-4 col-sm-6 mb-4 d-flex justify-content-center"> -->
 <!-- *ngFor="let movie of movies; trackBy: trackById; let i = index" -->
-<div class="card rounded" style="width: 100%; max-width: 200px">
+<div class="card rounded">
+  <!-- style="width: 100%; max-width: 400px" -->
   <div class="image-container position-relative">
     <div class="position-absolute top-end-10">
       <span class="more" (click)="toggleDropdown(index)">
@@ -42,7 +43,7 @@
       {{ movie.title }}
     </h5>
     <div class="d-flex justify-content-between align-items-center">
-      <span>{{ movie.release_date }}</span>
+      <span class="release-date">{{ movie.release_date }}</span>
       <button
         class="fav-btn"
         title="Add to favorites"

@@ -7,16 +7,13 @@ import {
   updateProfile,
   User,
   signOut,
-  authState
+  authState,
 } from '@angular/fire/auth';
 import { BehaviorSubject, Observable } from 'rxjs';
 
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
-
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
   currentUser = this.currentUserSubject.asObservable();
@@ -24,7 +21,7 @@ export class AuthService {
 
   constructor(private auth: Auth) {
     // this.currentUser = authState(this.auth);
-    authState(this.auth).subscribe(async user => {
+    authState(this.auth).subscribe(async (user) => {
       if (user) {
         await user.reload(); // always get latest info (e.g. emailVerified & displayName)
       }
@@ -36,7 +33,6 @@ export class AuthService {
   setUser(user: User | null): void {
     this.currentUserSubject.next(user);
   }
-
 
   signUp(email: string, password: string): Promise<UserCredential> {
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -56,7 +52,6 @@ export class AuthService {
   // get currentUser() {
   //   return this.auth.currentUser;
   // }
-
 
   // update user profile
   async updateUserProfile(displayName: string): Promise<void> {
